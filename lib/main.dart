@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'home_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,20 +18,7 @@ class MyApp extends StatelessWidget {
         ),
         home: const Scaffold(
           backgroundColor: Colors.black,
-          body: MyHomePage(),
+          body: HomePage(),
         ));
-  }
-}
-
-class MyHomePage extends StatelessWidget {
-  const MyHomePage({Key? key}) : super(key: key);
-  @override
-  Widget build(BuildContext context) {
-    return const Center(
-      child: Text(
-        "Bonjour le Dojo !",
-        style: TextStyle(fontSize: 24, color: Colors.white),
-      ),
-    );
   }
 }
