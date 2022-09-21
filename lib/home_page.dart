@@ -7,6 +7,11 @@ import 'pipe.dart';
 import 'score.dart';
 
 final _pipeWidth = 80.0;
+final _pipeHeights = <List<double>>[
+  [250, 150],
+  [100, 300],
+  [150, 250]
+];
 const _gravity = -4.9;
 const _velocity = 2.5;
 
@@ -22,7 +27,7 @@ class _HomePageState extends State<HomePage> {
   var _gameStarted = false;
   var initialPos = 0.0;
   var time = 0.0;
-  var xPipeAlignment = 1.0;
+  var xPipeAlignment = <double>[1.0, 2.2, 3.4];
 
   void _startGame() {
     _gameStarted = true;
@@ -36,7 +41,16 @@ class _HomePageState extends State<HomePage> {
       });
 
       time += 0.01;
-      xPipeAlignment -= 0.01;
+
+      setState(() {
+        for (int i = 0; i < xPipeAlignment.length; i++) {
+          if (xPipeAlignment[i] < -2) {
+            xPipeAlignment[i] += 3.5;
+          } else {
+            xPipeAlignment[i] -= 0.01;
+          }
+        }
+      });
 
       if (_birdIsDead()) {
         timer.cancel();
@@ -92,7 +106,7 @@ class _HomePageState extends State<HomePage> {
       _birdY = 0;
       time = 0;
       initialPos = 0;
-      xPipeAlignment = 1;
+      xPipeAlignment = <double>[1.0, 2.2, 3.4];
       _gameStarted = false;
     });
   }
@@ -117,18 +131,38 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     Pipe(
-                      pipeHeight: 150,
+                      pipeHeight: _pipeHeights[0][0],
                       pipeWidth: _pipeWidth,
-                      xPipeAlignment: xPipeAlignment,
+                      xPipeAlignment: xPipeAlignment[0],
                     ),
                     Pipe(
-                      pipeHeight: 300,
+                      pipeHeight: _pipeHeights[0][1],
                       pipeWidth: _pipeWidth,
-                      xPipeAlignment: xPipeAlignment,
+                      xPipeAlignment: xPipeAlignment[0],
                       isBottomPipe: true,
                     ),
-                    // display below container if game isn't started
-
+                    Pipe(
+                      pipeHeight: _pipeHeights[1][0],
+                      pipeWidth: _pipeWidth,
+                      xPipeAlignment: xPipeAlignment[1],
+                    ),
+                    Pipe(
+                      pipeHeight: _pipeHeights[1][1],
+                      pipeWidth: _pipeWidth,
+                      xPipeAlignment: xPipeAlignment[1],
+                      isBottomPipe: true,
+                    ),
+                    Pipe(
+                      pipeHeight: _pipeHeights[2][0],
+                      pipeWidth: _pipeWidth,
+                      xPipeAlignment: xPipeAlignment[2],
+                    ),
+                    Pipe(
+                      pipeHeight: _pipeHeights[2][1],
+                      pipeWidth: _pipeWidth,
+                      xPipeAlignment: xPipeAlignment[2],
+                      isBottomPipe: true,
+                    ),
                     if (!_gameStarted)
                       Container(
                         alignment: const Alignment(0, -0.3),
